@@ -1,0 +1,179 @@
+#include <iostream> 
+#include <iomanip> 
+using namespace std;
+
+void randomNumberAdd(int& num1, int& num2, int& num3, int& hasiljawapan, int& jawapan)
+{
+	num1 = rand() % 10 + 0;
+	num2 = rand() % 10 + 0;
+	num3 = rand() % 10 + 0;
+	hasiljawapan = num1 + num2 + num3;
+	cout << num1 << " + " << num2 << " + " << num3 << " = ";
+	cin >> jawapan;
+}
+
+void randomNumberMinus(int& num1, int& num2, int& num3, int& hasiljawapan, int& jawapan)
+{
+	num1 = rand() % 10 + 0;
+	num2 = rand() % 10 + 0;
+	num3 = rand() % 10 + 0;
+	hasiljawapan = num1 - num2 - num3;
+	cout << num1 << " - " << num2 << " - " << num3 << " = ";
+	cin >> jawapan;
+}
+
+void randomNumberMultiply(int& num1, int& num2, int& num3, int& hasiljawapan, int& jawapan)
+{
+	num1 = rand() % 10 + 0;
+	num2 = rand() % 10 + 0;
+	num3 = rand() % 10 + 0;
+	hasiljawapan = num1 * num2 * num3;
+	cout << num1 << " * " << num2 << " * " << num3 << " = ";
+	cin >> jawapan;
+}
+
+
+void inputsimbol(string& simbol)
+{
+	cin >> simbol;
+	while (simbol != "x" && simbol != "+" && simbol != "-" && simbol != "t" && simbol != "T")
+	{
+		cout << "invalid symbol, please key in new symbol :";
+		cin >> simbol;
+	}
+}
+
+
+void inputsoalan(int& jawapan, int& hasil, float& peratus)
+{
+	int num1, num2, num3;
+	float i, nomborsoalan;
+	i = 0;
+	nomborsoalan = 0;
+	string simbol, operasi;
+
+	do
+	{
+		cout << "Menu untuk KUIZ" << "\n" << "+ untuk tambah tiga nombor" << "\n" << "- untuk tolak tiga nombor \n";
+		cout << "x untuk darab tiga nombor \n" << "T untuk tamat\n" << "Sila masukkan pilihan anda :";
+		inputsimbol(simbol);
+
+		if (simbol == "+")
+		{
+			randomNumberAdd(num1, num2, num3, jawapan, hasil);
+			operasi = "+";
+			cout << num1 << " " << operasi << " " << num2 << " " << operasi << " " << num3 << " = " << hasil;
+			if (jawapan == hasil)
+			{
+				cout << "(true)" << endl;
+				i++;
+			}
+
+			else
+			{
+				cout << "(false)" << endl;
+			}
+
+			nomborsoalan++;
+		}
+
+		else if (simbol == "-")
+		{
+			randomNumberMinus(num1, num2, num3, jawapan, hasil);
+			operasi = "-";
+			cout << num1 << " " << operasi << " " << num2 << " " << operasi << " " << num3 << " = " << hasil;
+			if (jawapan == hasil)
+			{
+				cout << "(true)" << endl;
+				i++;
+			}
+
+			else
+			{
+				cout << "(false)" << endl;
+			}
+
+			nomborsoalan++;
+		}
+
+
+
+		else if (simbol == "x")
+		{
+			randomNumberMultiply(num1, num2, num3, jawapan, hasil);
+			operasi = "*";
+			cout << num1 << " " << operasi << " " << num2 << " " << operasi << " " << num3 << " = " << hasil;
+			if (jawapan == hasil)
+			{
+				cout << "(true)" << endl;
+				i++;
+			}
+
+			else
+			{
+				cout << "(false)" << endl;
+			}
+
+			nomborsoalan++;
+		}
+	} while (simbol != "T" && simbol != "t");     
+	float salah;
+	salah = nomborsoalan - i;
+
+	if (salah == 0 && i == 0) 
+	{
+		peratus = 0;
+	}
+
+	else 
+	{
+		peratus = (i / nomborsoalan) * 100;
+	}
+
+	cout << "Anda berjaya menjawab " << i << " soalan yang betul dan " << salah << " salah daripada " << nomborsoalan << endl;
+	cout << "Peratus markah adalah : " << fixed << setprecision(0) << peratus << "%";
+
+}
+
+
+
+void kiraperatus(float peratus)
+{
+	if (peratus >= 80)
+	{
+		cout << " - CEMERLANG" << endl;
+	}
+
+	else if (peratus < 80 && peratus >= 60)
+	{
+		cout << " - BAIK" << endl;
+	}
+
+	else if (peratus < 60 && peratus >= 40)
+	{
+		cout << " - SEDERHANA" << endl;
+	}
+
+	else
+	{
+		cout << " - USAHA LAGI" << endl;
+	}
+}
+
+
+
+int main()
+{
+	char huruf;
+	do
+	{
+		int  jawapan, hasil;
+		float peratus;
+		inputsoalan(jawapan, hasil, peratus);
+		kiraperatus(peratus);
+		cout << "Adakah anda ingin mencuba SOALAN KUIZ YANG LAIN (Y/N) :";
+		cin >> huruf;
+		cout << endl << endl;
+	} while (huruf == 'Y' || huruf == 'y');
+	cout << "Terima kasih atas KEGIGIHAN ANDA !!!" << endl;
+}
